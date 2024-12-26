@@ -99,7 +99,12 @@ async def setup_telegram(app: FastAPI):
                           drop_pending_updates=True,
                           secret_token=telegram_webhook_secret)
 
-    app.add_api_route(cfg.TELEGRAM_WEBHOOK_PATH, telegram_webhook_route, methods=["POST"])
+    app.add_api_route(
+        cfg.TELEGRAM_WEBHOOK_PATH,
+        telegram_webhook_route,
+        methods=["POST"],
+        include_in_schema=False
+    )
     logger.info(f"Added route for webhook at: {cfg.TELEGRAM_WEBHOOK_PATH}")
 
     logger.info("Webhook successfully set at: "
